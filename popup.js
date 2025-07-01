@@ -1,9 +1,10 @@
 /**
- * Upload Shield - popup.js
- * Handles setup, login, recovery, whitelist, and DNR sync.
+ * Upload Shield - popup.js (Extended)
+ * Handles setup, login, recovery, whitelist, upload history view,
+ * and in-popup update password & security toggle.
  */
 
-// Simple demo hash: base64 — for real use, swap with a secure hash!
+// Simple demo hash: base64 — replace with a secure hash in production
 function hash(input) {
   return btoa(input);
 }
@@ -19,7 +20,7 @@ function normalizeDomain(input) {
   }
 }
 
-// Load whitelist and render list with ❌ buttons
+// Load whitelist and render
 function loadWhitelist() {
   chrome.storage.local.get("whitelist", (data) => {
     const list = data.whitelist || [];
@@ -43,32 +44,67 @@ function loadWhitelist() {
   });
 }
 
-// Update declarativeNetRequest dynamic rules
+// Update declarativeNetRequest rules
 function updateDNRRules(whitelist) {
-  const allowRule = {
-    id: 1001,
-    priority: 2,
-    action: { type: "allow" },
-    condition: {
-      domains: whitelist,
-      resourceTypes: ["xmlhttprequest"]
-    }
-  };
-  chrome.declarativeNetRequest.updateDynamicRules({
-    addRules: [allowRule],
-    removeRuleIds: [1001]
-  }, () => {
-    console.log("[Upload Shield] ✅ DNR allow rules updated:", whitelist);
-  });
+    const blockAllRule = {
+        id: 2001,
+        priority: 1,
+        action: { type: "block" },
+        condition: {
+            resourceTypes: ["xmlhttprequest"]
+        }
+    };
+
+    chrome.declarativeNetRequest.updateDynamicRules({
+        addRules: [blockAllRule],
+        removeRuleIds: [1001, 2001] // remove any existing first to avoid duplicates
+    }, () => {
+        if (whitelist.length > 0) {
+            const allowRule = {
+                id: 1001,
+                priority: 2,
+                action: { type: "allow" },
+                condition: {
+                    domains: whitelist,
+                    resourceTypes: ["xmlhttprequest"]
+                }
+            };
+            chrome.declarativeNetRequest.updateDynamicRules({
+                addRules: [allowRule],
+                removeRuleIds: [1001] // cleanup redundant if needed
+            }, () => {
+                console.log("[Upload Shield] ✅ DNR rules updated for whitelist:", whitelist);
+            });
+        } else {
+            console.log("[Upload Shield] ✅ All uploads are now blocked (no whitelist).");
+        }
+    });
 }
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const setupSection = document.getElementById('setup-section');
   const loginSection = document.getElementById('login-section');
   const forgotSection = document.getElementById('forgot-section');
   const settingsSection = document.getElementById('settings-section');
+  const updateSection = document.getElementById('update-section');
+  const showUpdateBtn = document.getElementById('show-update-section-btn');
+  const backToSettingsBtn = document.getElementById('back-to-settings');
 
-  // On load: check password existence
+  // Handle show update section inside popup
+  if (showUpdateBtn && updateSection && settingsSection && backToSettingsBtn) {
+    showUpdateBtn.addEventListener('click', () => {
+      settingsSection.classList.add('hidden');
+      updateSection.classList.remove('hidden');
+    });
+    backToSettingsBtn.addEventListener('click', () => {
+      updateSection.classList.add('hidden');
+      settingsSection.classList.remove('hidden');
+    });
+  }
+
+  // On load: check if password is set
   chrome.storage.local.get(['password'], (res) => {
     if (!res.password) {
       setupSection.classList.remove('hidden');
@@ -145,13 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (current === res.password) {
         chrome.storage.local.set({ password: hash(newPwd) });
         document.getElementById('password-status').textContent = "Password updated!";
+        // Auto-return to settings
+        updateSection.classList.add('hidden');
+        settingsSection.classList.remove('hidden');
       } else {
         document.getElementById('password-status').textContent = "Incorrect current password.";
       }
     });
   };
 
-  // 5️⃣ Save security question
+  // 5️⃣ Update security question
   document.getElementById('save-security').onclick = () => {
     const q = document.getElementById('set-security-question').value;
     const a = document.getElementById('set-security-answer').value.trim().toLowerCase();
@@ -164,9 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
       securityAnswer: hash(a)
     });
     document.getElementById('security-status').textContent = "Security question saved.";
+    // Auto-return to settings
+    updateSection.classList.add('hidden');
+    settingsSection.classList.remove('hidden');
   };
 
-  // 6️⃣ Add site to whitelist + update DNR
+  // 6️⃣ Add site to whitelist
   document.getElementById('add-site').onclick = () => {
     const domain = normalizeDomain(document.getElementById('site-input').value.trim());
     if (!domain) return;
@@ -184,11 +226,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // 7️⃣ Clear all domains + update DNR
+  // 7️⃣ Clear all domains
   document.getElementById('clear-all').onclick = () => {
     chrome.storage.local.set({ whitelist: [] }, () => {
       updateDNRRules([]);
       loadWhitelist();
     });
+  };
+
+  // 8️⃣ View Upload History
+    document.getElementById('view-history').onclick = () => {
+      chrome.storage.local.set({ allowHistory: true }, () => {
+          chrome.tabs.create({
+              url: chrome.runtime.getURL('upload_history.html'),
+              active: true
+          });
+      });
   };
 });

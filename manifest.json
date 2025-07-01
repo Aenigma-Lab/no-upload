@@ -5,6 +5,7 @@
   "description": "Blocks file uploads on all sites except whitelisted domains.",
   "permissions": [
     "storage",
+    "tabs",
     "declarativeNetRequest"
   ],
   "host_permissions": ["<all_urls>"],
@@ -26,6 +27,7 @@
   },
   "content_scripts": [
     {
+      
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_end"

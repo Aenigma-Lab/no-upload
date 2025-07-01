@@ -6,58 +6,168 @@
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 320px;
-      margin: 5px auto;
-      padding: 15px;
-      border-radius: 10px;
-      background: #F5FFFF;
-    }
-    h2, h4 { color: #222; margin: 8px 0; }
-    input, select, button {
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 12px;
-      width: 100%;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-    .hidden { display: none; }
-    .error {
-      color: red;
-      font-size: 13px;
-      font-weight: bold;
-    }
-    .icon-container {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .icon-container img {
-      width: 40px;
-      height: auto;
-      margin-right: 10px;
-    }
-    .icon-container h1 {
-      margin: 0;
-      font-size: 18px;
-    }
-    ul { padding-left: 20px; margin: 0; }
-    li {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
-    li button {
-      background: none;
-      border: none;
-      color: red;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    hr { margin: 15px 0; }
-  </style>
+   body {
+    font-family: Arial, sans-serif;
+    width: 320px;
+    margin: 5px auto;
+    padding: 15px;
+    border-radius: 10px;
+    background: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+}
+
+h1, h2, h4 {
+    color: #ffffff;
+    margin: 8px 0;
+}
+
+input, select {
+    padding: 10px;
+    margin: 8px 0;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+input::placeholder,
+select option {
+    color: #aaaaaa;
+}
+
+button {
+    display: block;                  /* Ensure buttons take full width unless floated */
+    width: 100%;
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 8px 0;                   /* Even vertical spacing */
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background: #1e90ff;
+    transform: scale(1.02);
+}
+
+button:active {
+    background: #0056b3;
+}
+
+button.secondary {
+    background: #2c2c2c;
+}
+
+button.secondary:hover {
+    background: #3a3a3a;
+}
+
+button.secondary:active {
+    background: #1a1a1a;
+}
+
+button.danger {
+    background: #d9534f;
+}
+
+button.danger:hover {
+    background: #c9302c;
+}
+
+button.danger:active {
+    background: #a71d2a;
+}
+
+#back-to-settings {
+    width: auto;                     /* Only as wide as needed */
+    float: right;
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 10px;               /* Gap from adjacent elements */
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#back-to-settings:hover {
+    background-color: #3a3a3a;
+    transform: scale(1.03);
+}
+
+.hidden {
+    display: none;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.icon-container img {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.icon-container h1 {
+    margin: 0;
+    font-size: 18px;
+}
+
+ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+}
+
+li button {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+li button:hover {
+    color: #ff0000;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 15px 0;
+}
+
+    </style>
+
 </head>
 <body>
   <div class="icon-container">
@@ -104,32 +214,37 @@
   </div>
 
   <!-- 4️⃣ Settings Section -->
+  
   <div id="settings-section" class="hidden">
-    <h4>✅ Allowed Domains</h4>
-    <input type="text" id="site-input" placeholder="e.g. example.com">
-    <button id="add-site">Add Domain</button>
-    <ul id="whitelist"></ul>
-    <button id="clear-all">Clear All Domains</button>
-
-    <hr>
-    <h4>🔒 Update Password</h4>
-    <input type="password" id="current-password" placeholder="Current Password">
-    <input type="password" id="new-password" placeholder="New Password (min 6)">
-    <button id="update-password">Update Password</button>
-    <p id="password-status" class="error"></p>
-
-    <h4>❓ Update Security Question</h4>
-    <select id="set-security-question">
-      <option disabled selected value="">Choose Security Question</option>
-      <option value="pet">What is your pet's name?</option>
-      <option value="school">What is the name of your first school?</option>
-      <option value="city">In which city were you born?</option>
-    </select>
-    <input type="text" id="set-security-answer" placeholder="Answer">
-    <button id="save-security">Save Security Question</button>
-    <p id="security-status" class="error"></p>
+      <h4>✅ Allowed Domains</h4>
+      <input type="text" id="site-input" placeholder="e.g. example.com">
+      <button id="add-site">Add Domain</button>
+      <ul id="whitelist"></ul>
+      <button id="clear-all">Clear All Domains</button>
+      <button id="view-history">View Upload History</button>
+      <button id="show-update-section-btn">⚙️ Update Security & Password</button>
   </div>
 
+  <!-- NEW: Update Section (initially hidden) -->
+  <div id="update-section" class="hidden">
+      <button id="back-to-settings" style="float: right;">🔙 Back</button>
+      <h4>🔒 Update Password</h4>
+      <input type="password" id="current-password" placeholder="Current Password">
+      <input type="password" id="new-password" placeholder="New Password (min 6)">
+      <button id="update-password">Update Password</button>
+      <p id="password-status" class="error"></p>
+
+      <h4>❓ Update Security Question</h4>
+      <select id="set-security-question">
+          <option disabled selected value="">Choose Security Question</option>
+          <option value="pet">What is your pet's name?</option>
+          <option value="school">What is the name of your first school?</option>
+          <option value="city">In which city were you born?</option>
+      </select>
+      <input type="text" id="set-security-answer" placeholder="Answer">
+      <button id="save-security">Save Security Question</button>
+      <p id="security-status" class="error"></p>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
