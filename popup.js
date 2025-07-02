@@ -81,6 +81,47 @@ function updateDNRRules(whitelist) {
     });
 }
 
+// -------------------- Custom URL Management ------------------------
+
+function loadCustomURLs() {
+    chrome.storage.local.get({ customURLs: [] }, (data) => {
+        const list = document.getElementById('custom-url-list');
+        list.innerHTML = '';
+
+        if (!data.customURLs || data.customURLs.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = "No URLs added yet.";
+            li.style.color = "#888";
+            list.appendChild(li);
+            return;
+        }
+
+        const url = data.customURLs[0]; // Only one allowed
+        const li = document.createElement('li');
+        li.textContent = url;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = "🗑️";
+        removeBtn.style.background = "none";
+        removeBtn.style.border = "none";
+        removeBtn.style.color = "#ff4d4d";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.style.fontSize = "16px";
+        removeBtn.style.marginLeft = "8px";
+        removeBtn.onmouseenter = () => removeBtn.style.color = "#ff0000";
+        removeBtn.onmouseleave = () => removeBtn.style.color = "#ff4d4d";
+
+        removeBtn.onclick = () => {
+            chrome.storage.local.set({ customURLs: [] }, () => {
+                loadCustomURLs();
+            });
+        };
+
+        li.appendChild(removeBtn);
+        list.appendChild(li);
+    });
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
