@@ -21,6 +21,28 @@ function normalizeDomain(input) {
 }
 
 // Load whitelist and render
+// function loadWhitelist() {
+//   chrome.storage.local.get("whitelist", (data) => {
+//     const list = data.whitelist || [];
+//     const ul = document.getElementById("whitelist");
+//     ul.innerHTML = "";
+//     list.forEach((site, index) => {
+//       const li = document.createElement("li");
+//       li.textContent = site;
+//       const btn = document.createElement("button");
+//       btn.textContent = "❌";
+//       btn.onclick = () => {
+//         list.splice(index, 1);
+//         chrome.storage.local.set({ whitelist: list }, () => {
+//           updateDNRRules(list);
+//           loadWhitelist();
+//         });
+//       };
+//       li.appendChild(btn);
+//       ul.appendChild(li);
+//     });
+//   });
+// }
 function loadWhitelist() {
   chrome.storage.local.get("whitelist", (data) => {
     const list = data.whitelist || [];
@@ -29,8 +51,20 @@ function loadWhitelist() {
     list.forEach((site, index) => {
       const li = document.createElement("li");
       li.textContent = site;
+
       const btn = document.createElement("button");
-      btn.textContent = "❌";
+      btn.textContent = "🗑️";
+
+      // ✅ Added requested CSS:
+      btn.style.background = "none";
+      btn.style.border = "none";
+      btn.style.color = "#ff4d4d";
+      btn.style.cursor = "pointer";
+      btn.style.fontSize = "16px";
+      btn.style.marginLeft = "8px";
+      btn.onmouseenter = () => btn.style.color = "#ff0000";
+      btn.onmouseleave = () => btn.style.color = "#ff4d4d";
+
       btn.onclick = () => {
         list.splice(index, 1);
         chrome.storage.local.set({ whitelist: list }, () => {
@@ -38,11 +72,13 @@ function loadWhitelist() {
           loadWhitelist();
         });
       };
+
       li.appendChild(btn);
       ul.appendChild(li);
     });
   });
 }
+
 
 // Update declarativeNetRequest rules
 function updateDNRRules(whitelist) {
