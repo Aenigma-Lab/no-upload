@@ -122,6 +122,30 @@ function loadCustomURLs() {
     });
 }
 
+document.getElementById('add-custom-url').addEventListener('click', () => {
+    const urlInput = document.getElementById('custom-url-input');
+    const url = urlInput.value.trim();
+    if (!url) return alert("Please enter a URL.");
+    try {
+        new URL(url);
+    } catch {
+        return alert("Invalid URL format.");
+    }
+
+    chrome.storage.local.get({ customURLs: [] }, (data) => {
+        const updated = data.customURLs;
+        updated.push(url);
+        chrome.storage.local.set({ customURLs: updated }, () => {
+            urlInput.value = '';
+            loadCustomURLs();
+        });
+    });
+});
+
+// Load on popup open
+document.addEventListener('DOMContentLoaded', loadCustomURLs);
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
