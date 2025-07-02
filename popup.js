@@ -21,28 +21,6 @@ function normalizeDomain(input) {
 }
 
 // Load whitelist and render
-// function loadWhitelist() {
-//   chrome.storage.local.get("whitelist", (data) => {
-//     const list = data.whitelist || [];
-//     const ul = document.getElementById("whitelist");
-//     ul.innerHTML = "";
-//     list.forEach((site, index) => {
-//       const li = document.createElement("li");
-//       li.textContent = site;
-//       const btn = document.createElement("button");
-//       btn.textContent = "❌";
-//       btn.onclick = () => {
-//         list.splice(index, 1);
-//         chrome.storage.local.set({ whitelist: list }, () => {
-//           updateDNRRules(list);
-//           loadWhitelist();
-//         });
-//       };
-//       li.appendChild(btn);
-//       ul.appendChild(li);
-//     });
-//   });
-// }
 function loadWhitelist() {
   chrome.storage.local.get("whitelist", (data) => {
     const list = data.whitelist || [];
@@ -188,12 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const setupSection = document.getElementById('setup-section');
   const loginSection = document.getElementById('login-section');
   const forgotSection = document.getElementById('forgot-section');
+  const setNewPasswordSection = document.getElementById('set-new-password-section');
   const settingsSection = document.getElementById('settings-section');
   const updateSection = document.getElementById('update-section');
+
   const showUpdateBtn = document.getElementById('show-update-section-btn');
   const backToSettingsBtn = document.getElementById('back-to-settings');
 
-  // Handle show update section inside popup
+  // Handle show/hide update section
   if (showUpdateBtn && updateSection && settingsSection && backToSettingsBtn) {
     showUpdateBtn.addEventListener('click', () => {
       settingsSection.classList.add('hidden');
@@ -215,14 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 1️⃣ Save first-time password & security
-  document.getElementById('save-setup').onclick = () => {
+  document.getElementById('save-setup')?.addEventListener('click', () => {
     const pwd = document.getElementById('setup-password').value.trim();
     const q = document.getElementById('setup-security-question').value;
     const a = document.getElementById('setup-security-answer').value.trim().toLowerCase();
+
     if (pwd.length < 6 || !q || !a) {
       document.getElementById('setup-status').textContent = "Fill all fields.";
       return;
     }
+
     chrome.storage.local.set({
       password: hash(pwd),
       securityQuestion: q,
@@ -231,10 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
       setupSection.classList.add('hidden');
       loginSection.classList.remove('hidden');
     });
-  };
+  });
 
   // 2️⃣ Login
-  document.getElementById('login').onclick = () => {
+  document.getElementById('login')?.addEventListener('click', () => {
     const entered = hash(document.getElementById('pwd').value.trim());
     chrome.storage.local.get('password', (res) => {
       if (entered === res.password) {
@@ -245,74 +227,105 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('login-status').textContent = "Wrong password.";
       }
     });
-  };
+  });
 
   // 3️⃣ Forgot Password
-  document.getElementById('forgot-password-btn').onclick = () => {
+  document.getElementById('forgot-password-btn')?.addEventListener('click', () => {
     chrome.storage.local.get('securityQuestion', (res) => {
       document.getElementById('security-question').value = res.securityQuestion || "";
     });
     loginSection.classList.add('hidden');
     forgotSection.classList.remove('hidden');
-  };
+  });
 
-  document.getElementById('recover-access').onclick = () => {
+  document.getElementById('recover-access')?.addEventListener('click', () => {
     const a = hash(document.getElementById('security-answer').value.trim().toLowerCase());
     const q = document.getElementById('security-question').value;
     chrome.storage.local.get(['securityQuestion', 'securityAnswer'], (res) => {
       if (q === res.securityQuestion && a === res.securityAnswer) {
         forgotSection.classList.add('hidden');
-        settingsSection.classList.remove('hidden');
-        loadWhitelist();
+        setNewPasswordSection.classList.remove('hidden');
       } else {
         document.getElementById('recover-status').textContent = "Invalid answer.";
       }
     });
-  };
+  });
 
-  // 4️⃣ Update password
-  document.getElementById('update-password').onclick = () => {
+  // Set new password after recovery
+  document.getElementById('save-new-password-btn')?.addEventListener('click', () => {
+    const newPwd = document.getElementById('new-password-field').value.trim();
+    const confirmPwd = document.getElementById('confirm-password-field').value.trim();
+
+    if (newPwd.length < 6) {
+      document.getElementById('new-password-status').textContent = "Password too short.";
+      return;
+    }
+    if (newPwd !== confirmPwd) {
+      document.getElementById('new-password-status').textContent = "Passwords do not match.";
+      return;
+    }
+
+    chrome.storage.local.set({ password: hash(newPwd) }, () => {
+      document.getElementById('new-password-status').textContent = "Password updated! Please log in.";
+      document.getElementById('new-password-field').value = '';
+      document.getElementById('confirm-password-field').value = '';
+
+      setTimeout(() => {
+        setNewPasswordSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        document.getElementById('new-password-status').textContent = '';
+      }, 1500);
+    });
+  });
+
+  // 4️⃣ Update password from settings
+  document.getElementById('update-password')?.addEventListener('click', () => {
     const current = hash(document.getElementById('current-password').value.trim());
     const newPwd = document.getElementById('new-password').value.trim();
+
     if (newPwd.length < 6) {
       document.getElementById('password-status').textContent = "New password too short.";
       return;
     }
+
     chrome.storage.local.get('password', (res) => {
       if (current === res.password) {
-        chrome.storage.local.set({ password: hash(newPwd) });
-        document.getElementById('password-status').textContent = "Password updated!";
-        // Auto-return to settings
-        updateSection.classList.add('hidden');
-        settingsSection.classList.remove('hidden');
+        chrome.storage.local.set({ password: hash(newPwd) }, () => {
+          document.getElementById('password-status').textContent = "Password updated!";
+          updateSection.classList.add('hidden');
+          settingsSection.classList.remove('hidden');
+        });
       } else {
         document.getElementById('password-status').textContent = "Incorrect current password.";
       }
     });
-  };
+  });
 
   // 5️⃣ Update security question
-  document.getElementById('save-security').onclick = () => {
+  document.getElementById('save-security')?.addEventListener('click', () => {
     const q = document.getElementById('set-security-question').value;
     const a = document.getElementById('set-security-answer').value.trim().toLowerCase();
+
     if (!q || !a) {
       document.getElementById('security-status').textContent = "Fill both fields.";
       return;
     }
+
     chrome.storage.local.set({
       securityQuestion: q,
       securityAnswer: hash(a)
+    }, () => {
+      document.getElementById('security-status').textContent = "Security question saved.";
+      updateSection.classList.add('hidden');
+      settingsSection.classList.remove('hidden');
     });
-    document.getElementById('security-status').textContent = "Security question saved.";
-    // Auto-return to settings
-    updateSection.classList.add('hidden');
-    settingsSection.classList.remove('hidden');
-  };
+  });
 
-  // 6️⃣ Add site to whitelist
-  document.getElementById('add-site').onclick = () => {
+  // 6️⃣ Add domain to whitelist
+  document.getElementById('add-site')?.addEventListener('click', () => {
     const domain = normalizeDomain(document.getElementById('site-input').value.trim());
     if (!domain) return;
+
     chrome.storage.local.get('whitelist', (res) => {
       const wl = res.whitelist || [];
       if (!wl.includes(domain)) {
@@ -325,23 +338,25 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Domain already added.");
       }
     });
-  };
+  });
 
   // 7️⃣ Clear all domains
-  document.getElementById('clear-all').onclick = () => {
+  document.getElementById('clear-all')?.addEventListener('click', () => {
     chrome.storage.local.set({ whitelist: [] }, () => {
       updateDNRRules([]);
       loadWhitelist();
     });
-  };
+  });
 
-  // 8️⃣ View Upload History
-    document.getElementById('view-history').onclick = () => {
-      chrome.storage.local.set({ allowHistory: true }, () => {
-          chrome.tabs.create({
-              url: chrome.runtime.getURL('upload_history.html'),
-              active: true
-          });
+ // 8️⃣ View upload history
+  document.getElementById('view-history')?.addEventListener('click', () => {
+    chrome.storage.local.set({ allowHistory: true }, () => {
+      chrome.tabs.create({
+        url: chrome.runtime.getURL('upload_history.html'),
+        active: true
       });
-  };
-});
+    });
+  });
+
+}); 
+

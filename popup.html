@@ -293,91 +293,94 @@
   </a>
 </div>
   
+<!-- 1️⃣ Setup Section -->
+<div id="setup-section" class="hidden">
+  <h4>🔐 Set Password & Security Q</h4>
+  <input type="password" id="setup-password" placeholder="New Password (min 6)">
+  <select id="setup-security-question">
+    <option disabled selected value="">Choose Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="setup-security-answer" placeholder="Answer">
+  <button id="save-setup">Save</button>
+  <p id="setup-status" class="error"></p>
+</div>
 
+<!-- 2️⃣ Login Section -->
+<div id="login-section" class="hidden">
+  <h2>🔑 Login</h2>
+  <input type="password" id="pwd" placeholder="Enter Password">
+  <button id="login">Login</button>
+  <p id="login-status" class="error"></p>
+  <button id="forgot-password-btn">Forgot Password?</button>
+</div>
 
-  <!-- 1️⃣ Setup Section -->
-  <div id="setup-section" class="hidden">
-    <h4>🔐 Set Password & Security Q</h4>
-    <input type="password" id="setup-password" placeholder="New Password (min 6)">
-    <select id="setup-security-question">
-      <option disabled selected value="">Choose Security Question</option>
-      <option value="pet">What is your pet's name?</option>
-      <option value="school">What is the name of your first school?</option>
-      <option value="city">In which city were you born?</option>
-    </select>
-    <input type="text" id="setup-security-answer" placeholder="Answer">
-    <button id="save-setup">Save</button>
-    <p id="setup-status" class="error"></p>
-  </div>
+<!-- 3️⃣ Forgot Section -->
+<div id="forgot-section" class="hidden">
+  <h2>❓ Recover Access</h2>
+  <select id="security-question">
+    <option disabled selected value="">Select Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="security-answer" placeholder="Answer">
+  <button id="recover-access">Recover</button>
+  <p id="recover-status" class="error"></p>
+</div>
 
-  <!-- 2️⃣ Login Section -->
-  <div id="login-section" class="hidden">
-    <h2>🔑 Login</h2>
-    <input type="password" id="pwd" placeholder="Enter Password">
-    <button id="login">Login</button>
-    <p id="login-status" class="error"></p>
-    <button id="forgot-password-btn">Forgot Password?</button>
-  </div>
+<!-- 4️⃣ Set New Password Section -->
+<div id="set-new-password-section" class="hidden">
+  <h2>🔒 Set New Password</h2>
+  <input type="password" id="new-password-field" placeholder="Enter New Password">
+  <input type="password" id="confirm-password-field" placeholder="Confirm New Password">
+  <button id="save-new-password-btn">Save New Password</button>
+  <p id="new-password-status" class="error"></p>
+</div>
 
-  <!-- 3️⃣ Forgot Section -->
-  <div id="forgot-section" class="hidden">
-    <h2>❓ Recover Access</h2>
-    <select id="security-question">
-      <option disabled selected value="">Select Security Question</option>
-      <option value="pet">What is your pet's name?</option>
-      <option value="school">What is the name of your first school?</option>
-      <option value="city">In which city were you born?</option>
-    </select>
-    <input type="text" id="security-answer" placeholder="Answer">
-    <button id="recover-access">Recover</button>
-    <p id="recover-status" class="error"></p>
-  </div>
-  
-  <!-- 4️⃣ Settings Section -->
-  <div id="settings-section" class="hidden">
-    <h2>✅ Allowed Domains</h2>
-    <input type="text" id="site-input" placeholder="e.g. example.com">
-    <button id="add-site">Add Domain</button>
-    <ul id="whitelist"></ul>
-    <button id="clear-all" class="danger">Clear All Domains</button>
+<!-- 5️⃣ Settings Section -->
+<div id="settings-section" class="hidden">
+  <h2>✅ Allowed Domains</h2>
+  <input type="text" id="site-input" placeholder="e.g. example.com">
+  <button id="add-site">Add Domain</button>
+  <ul id="whitelist"></ul>
+  <button id="clear-all" class="danger">Clear All Domains</button>
   <hr>
-    <h2>⚙️ Settings</h2>
-    <button id="view-history">View Upload History</button>
-    <button id="show-update-section-btn"> Update Password</button>
-  
-    <hr>
+  <h2>⚙️ Settings</h2>
+  <button id="view-history">View Upload History</button>
+  <button id="show-update-section-btn">Update Password</button>
+  <hr>
+  <!-- Custom URL Management -->
+  <h2>🌐 Allowed Redirect URLs</h2>
+  <input type="text" id="custom-url-input" placeholder="https://example.com">
+  <button id="add-custom-url">Add URL</button>
+  <ul id="custom-url-list"></ul>
+</div>
 
-    <!-- Custom URL Management -->
-    <h2>🌐 Allowed Redirect URLs</h2>
-    <input type="text" id="custom-url-input" placeholder="https://example.com">
-    <button id="add-custom-url">Add URL</button>
-    <ul id="custom-url-list"></ul>
+<!-- 6️⃣ Update Section -->
+<div id="update-section" class="hidden">
+  <button id="back-to-settings">🔙 Back</button>
+  <h2>🔒 Update Password</h2>
+  <hr>
+  <input type="password" id="current-password" placeholder="Current Password">
+  <input type="password" id="new-password" placeholder="New Password (min 6)">
+  <button id="update-password">Update Password</button>
+  <p id="password-status" class="error"></p>
+  <hr>
+  <h2>❓ Update Security Question</h2>
+  <select id="set-security-question">
+    <option disabled selected value="">Choose Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="set-security-answer" placeholder="Answer">
+  <button id="save-security">Save Security Question</button>
+  <p id="security-status" class="error"></p>
+</div>
 
-  </div>
-
-
-  
-  <!-- 5️⃣ Update Section -->
-  <div id="update-section" class="hidden">
-    <button id="back-to-settings">🔙 Back</button>
-    <h2>🔒 Update Password</h2>
-    <hr>
-    <input type="password" id="current-password" placeholder="Current Password">
-    <input type="password" id="new-password" placeholder="New Password (min 6)">
-    <button id="update-password">Update Password</button>
-    <p id="password-status" class="error"></p>
-   <hr> 
-    <h2>❓ Update Security Question</h2>
-    <select id="set-security-question">
-      <option disabled selected value="">Choose Security Question</option>
-      <option value="pet">What is your pet's name?</option>
-      <option value="school">What is the name of your first school?</option>
-      <option value="city">In which city were you born?</option>
-    </select>
-    <input type="text" id="set-security-answer" placeholder="Answer">
-    <button id="save-security">Save Security Question</button>
-    <p id="security-status" class="error"></p>
-  </div>
 
   <script src="popup.js"></script>
 </body>
