@@ -1,133 +1,251 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Privacy Policy for no-upload Chrome Extension</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9fafb;
-    margin: 0;
-    padding: 40px 20px;
-    color: #333;
-    line-height: 1.6;
-  }
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 30px 40px;
-  }
-  h1, h2 {
-    color: #2c3e50;
-    margin-top: 0;
-  }
-  h1 {
-    font-size: 28px;
-    margin-bottom: 0.3em;
-  }
-  h2 {
-    font-size: 22px;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  p {
-    margin: 1em 0;
-  }
-  ul {
-    padding-left: 20px;
-    margin: 1em 0;
-  }
-  li {
-    margin-bottom: 0.5em;
-  }
-  strong {
-    font-weight: 600;
-  }
-  a {
-    color: #0066cc;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  footer {
-    margin-top: 40px;
-    font-size: 0.9em;
-    color: #777;
-    text-align: center;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy for no-upload Chrome Extension</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar Styles */
+    nav {
+      background-color: #2c3e50;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout: Sidebar and Main Content */
+    .container {
+      display: flex;
+      padding: 20px;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 200px;
+      background-color: #34495e;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .sidebar h3 {
+      font-size: 18px;
+      margin-bottom: 1em;
+    }
+
+    .sidebar ul {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .sidebar li {
+      margin: 10px 0;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Content Styles */
+    .content {
+      flex: 1;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px 40px;
+      max-width: 900px;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 0.3em;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 1em 0;
+    }
+
+    li {
+      margin-bottom: 0.5em;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>no-upload Privacy Policy</h1>
+    <div>
+      <a href="#info">Information</a>
+      <a href="#use">Usage</a>
+      <a href="#permissions">Permissions</a>
+      <a href="#security">Security</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
   <div class="container">
-    <h1>Privacy Policy for no-upload Chrome Extension</h1>
-    <p><strong>Effective Date:</strong> July 11, 2025</p>
-    <p>Thank you for using <strong>no-upload</strong>, a lightweight Chrome extension designed to block file uploads on all websites by default and allow uploads only on trusted, whitelisted sites.</p>
-    <p>This Privacy Policy explains how we handle your data and protect your privacy when you use no-upload.</p>
 
-    <h2>1. Information We Collect</h2>
-    <ul>
-      <li>no-upload <strong>does not collect, store, or transmit any personal data or files</strong> from your device.</li>
-      <li>All settings, including your whitelist and upload attempt logs, are stored <strong>locally in your browser’s storage</strong>.</li>
-      <li>Upload attempt history logs include only metadata about upload attempts (e.g., date, time, and website URL) and are <strong>kept locally</strong>.</li>
-    </ul>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h3>Sections</h3>
+      <ul>
+        <li><a href="#info">1. Information We Collect</a></li>
+        <li><a href="#use">2. How We Use Your Information</a></li>
+        <li><a href="#permissions">3. Permissions and Access</a></li>
+        <li><a href="#security">4. Data Security</a></li>
+        <li><a href="#thirdparty">5. Third-Party Services</a></li>
+        <li><a href="#control">6. User Control</a></li>
+        <li><a href="#children">7. Children’s Privacy</a></li>
+        <li><a href="#changes">8. Changes to This Privacy Policy</a></li>
+        <li><a href="#contact">9. Contact Us</a></li>
+      </ul>
+    </div>
 
-    <h2>2. How We Use Your Information</h2>
-    <ul>
-      <li>We use your locally stored settings and logs <strong>only to provide the core functionality</strong> of blocking or allowing uploads based on your whitelist.</li>
-      <li>No information leaves your device or is shared with any external service.</li>
-    </ul>
+    <!-- Main Content -->
+    <div class="content">
+      <h1>Privacy Policy for no-upload Chrome Extension</h1>
+      <p><strong>Effective Date:</strong> July 11, 2025</p>
+      <p>Thank you for using <strong>no-upload</strong>, a lightweight Chrome extension designed to block file uploads on all websites by default and allow uploads only on trusted, whitelisted sites.</p>
+      <p>This Privacy Policy explains how we handle your data and protect your privacy when you use no-upload.</p>
 
-    <h2>3. Permissions and Access</h2>
-    <ul>
-      <li>The extension requires permissions to:
-        <ul>
-          <li>Access website URLs to enforce blocking/allowing uploads.</li>
-          <li>Use local storage to save your settings and logs.</li>
-          <li>Show popup and options UI for configuration.</li>
-        </ul>
-      </li>
-      <li>These permissions are used <strong>exclusively</strong> for extension functionality and <strong>never for data collection, tracking, or advertising</strong>.</li>
-    </ul>
+      <h2 id="info">1. Information We Collect</h2>
+      <ul>
+        <li>no-upload <strong>does not collect, store, or transmit any personal data or files</strong> from your device.</li>
+        <li>All settings, including your whitelist and upload attempt logs, are stored <strong>locally in your browser’s storage</strong>.</li>
+        <li>Upload attempt history logs include only metadata about upload attempts (e.g., date, time, and website URL) and are <strong>kept locally</strong>.</li>
+      </ul>
 
-    <h2>4. Data Security</h2>
-    <ul>
-      <li>All configuration data and upload logs are stored <strong>securely and locally</strong>.</li>
-      <li>The settings panel is protected by a <strong>password</strong> to prevent unauthorized access or changes.</li>
-      <li>We recommend users maintain strong device and browser security to protect extension data.</li>
-    </ul>
+      <h2 id="use">2. How We Use Your Information</h2>
+      <ul>
+        <li>We use your locally stored settings and logs <strong>only to provide the core functionality</strong> of blocking or allowing uploads based on your whitelist.</li>
+        <li>No information leaves your device or is shared with any external service.</li>
+      </ul>
 
-    <h2>5. Third-Party Services</h2>
-    <p>no-upload <strong>does not use or integrate with any third-party analytics, advertising, or tracking services</strong>.</p>
-    <p>No data is sent to external servers.</p>
+      <h2 id="permissions">3. Permissions and Access</h2>
+      <ul>
+        <li>The extension requires permissions to:
+          <ul>
+            <li>Access website URLs to enforce blocking/allowing uploads.</li>
+            <li>Use local storage to save your settings and logs.</li>
+            <li>Show popup and options UI for configuration.</li>
+          </ul>
+        </li>
+        <li>These permissions are used <strong>exclusively</strong> for extension functionality and <strong>never for data collection, tracking, or advertising</strong>.</li>
+      </ul>
 
-    <h2>6. User Control</h2>
-    <ul>
-      <li>You can uninstall or disable no-upload at any time; doing so removes all local data.</li>
-      <li>You control your whitelist and password-protected settings.</li>
-      <li>Upload attempt logs can be reviewed or cleared by you via the options page.</li>
-    </ul>
+      <h2 id="security">4. Data Security</h2>
+      <ul>
+        <li>All configuration data and upload logs are stored <strong>securely and locally</strong>.</li>
+        <li>The settings panel is protected by a <strong>password</strong> to prevent unauthorized access or changes.</li>
+        <li>We recommend users maintain strong device and browser security to protect extension data.</li>
+      </ul>
 
-    <h2>7. Children’s Privacy</h2>
-    <p>no-upload is <strong>not intended for use by children under the age of 13</strong>.</p>
-    <p>We do not knowingly collect personal information from children.</p>
+      <h2 id="thirdparty">5. Third-Party Services</h2>
+      <p>no-upload <strong>does not use or integrate with any third-party analytics, advertising, or tracking services</strong>.</p>
+      <p>No data is sent to external servers.</p>
 
-    <h2>8. Changes to This Privacy Policy</h2>
-    <p>We may update this Privacy Policy from time to time.</p>
-    <p>Changes will be posted with an updated effective date.</p>
-    <p>We encourage you to review this policy periodically.</p>
+      <h2 id="control">6. User Control</h2>
+      <ul>
+        <li>You can uninstall or disable no-upload at any time; doing so removes all local data.</li>
+        <li>You control your whitelist and password-protected settings.</li>
+        <li>Upload attempt logs can be reviewed or cleared by you via the options page.</li>
+      </ul>
 
-    <h2>9. Contact Us</h2>
-    <p>If you have questions about this Privacy Policy or no-upload, please contact us at:</p>
-    <p><strong>Email:</strong> <a href="mailto:f10.shubham@gmail.com">f10.shubham@gmail.com</a></p>
+      <h2 id="children">7. Children’s Privacy</h2>
+      <p>no-upload is <strong>not intended for use by children under the age of 13</strong>.</p>
+      <p>We do not knowingly collect personal information from children.</p>
 
-    <p><strong>By installing and using no-upload, you agree to this Privacy Policy and consent to the practices described above.</strong></p>
+      <h2 id="changes">8. Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time.</p>
+      <p>Changes will be posted with an updated effective date.</p>
+      <p>We encourage you to review this policy periodically.</p>
+
+      <h2 id="contact">9. Contact Us</h2>
+      <p>If you have questions about this Privacy Policy or no-upload, please contact us at:</p>
+      <p><strong>Email:</strong> <a href="mailto:f10.shubham@gmail.com">f10.shubham@gmail.com</a></p>
+
+      <p><strong>By installing and using no-upload, you agree to this Privacy Policy and consent to the practices described above.</strong></p>
+
+    </div>
 
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Aenigma-Lab. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
