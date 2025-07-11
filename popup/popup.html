@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>No Upload Settings</title>
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 320px;
+      margin: 5px auto;
+      padding: 15px;
+      border-radius: 10px;
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    h1, h2, h4 {
+      color: #ffffff;
+      margin: 8px 0;
+    }
+
+    input, select {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 14px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    input::placeholder,
+    select option {
+      color: #aaaaaa;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      margin: 8px 0;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background: #1e90ff;
+      transform: scale(1.02);
+    }
+
+    button:active {
+      background: #0056b3;
+    }
+
+    button.secondary {
+      background: #2c2c2c;
+    }
+
+    button.secondary:hover {
+      background: #3a3a3a;
+    }
+
+    button.secondary:active {
+      background: #1a1a1a;
+    }
+
+    button.danger {
+      background: #d9534f;
+    }
+
+    button.danger:hover {
+      background: #c9302c;
+    }
+
+    button.danger:active {
+      background: #a71d2a;
+    }
+
+    #back-to-settings {
+      width: auto;
+      float: right;
+      background-color: #2c2c2c;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+      margin-left: 10px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    #back-to-settings:hover {
+      background-color: #3a3a3a;
+      transform: scale(1.03);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: #ff6b6b;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .icon-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0px;
+    }
+
+    .icon-container img {
+      width: 40px;
+      height: auto;
+      margin-right: 10px;
+    }
+     h1 {
+      margin: 0;
+      font-size: 40px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      color: #e0e0e0;
+    }
+
+    li button {
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    li button:hover {
+      color: #ff0000;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 15px 0;
+    }
+
+    /* line moving for no upload  */
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;              /* remove all margin */
+  padding: 0;             /* ensure no extra space */
+  width: 100%;
+}
+
+.icon-container img {
+  width: 60px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.playbtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 25px 30px;
+  margin: 0;                /* remove all margin to sit at top */
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0px;
+  overflow: hidden;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.playbtn:hover {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 5px #fff,
+              0 0 25px #fff,
+              0 0 50px #fff,
+              0 0 200px #fff;
+  /* Reflection removed by deleting -webkit-box-reflect */
+}
+
+.playbtn span {
+  position: absolute;
+  display: block;
+}
+
+.playbtn span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff);
+  animation: animate1 2s linear infinite;
+}
+
+@keyframes animate1 {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+.playbtn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #fff);
+  animation: animate2 2s linear infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes animate2 {
+  0% { top: -100%; }
+  50%, 100% { top: 100%; }
+}
+
+.playbtn span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #fff);
+  animation: animate3 2s linear infinite;
+  animation-delay: 1s;
+}
+
+@keyframes animate3 {
+  0% { right: -100%; }
+  50%, 100% { right: 100%; }
+}
+
+.playbtn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #fff);
+  animation: animate4 2s linear infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes animate4 {
+  0% { bottom: -100%; }
+  50%, 100% { bottom: 100%; }
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="icon-container">
+  <a class="playbtn" href="#">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <img src="../assets/icon.png" alt="Icon" />
+    NO UPLOAD
+  </a>
+</div>
+  
+<!-- 1️⃣ Setup Section -->
+<div id="setup-section" class="hidden">
+  <h4>🔐 Set Password & Security Q</h4>
+  <input type="password" id="setup-password" placeholder="New Password (min 6)">
+  <select id="setup-security-question">
+    <option disabled selected value="">Choose Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="setup-security-answer" placeholder="Answer">
+  <button id="save-setup">Save</button>
+  <p id="setup-status" class="error"></p>
+</div>
+
+<!-- 2️⃣ Login Section -->
+<div id="login-section" class="hidden">
+  <h2>🔑 Login</h2>
+  <input type="password" id="pwd" placeholder="Enter Password">
+  <button id="login">Login</button>
+  <p id="login-status" class="error"></p>
+  <button id="forgot-password-btn">Forgot Password?</button>
+</div>
+
+<!-- 3️⃣ Forgot Section -->
+<div id="forgot-section" class="hidden">
+  <h2>❓ Recover Access</h2>
+  <select id="security-question">
+    <option disabled selected value="">Select Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="security-answer" placeholder="Answer">
+  <button id="recover-access">Recover</button>
+  <p id="recover-status" class="error"></p>
+</div>
+
+<!-- 4️⃣ Set New Password Section -->
+<div id="set-new-password-section" class="hidden">
+  <h2>🔒 Set New Password</h2>
+  <input type="password" id="new-password-field" placeholder="Enter New Password">
+  <input type="password" id="confirm-password-field" placeholder="Confirm New Password">
+  <button id="save-new-password-btn">Save New Password</button>
+  <p id="new-password-status" class="error"></p>
+</div>
+
+<!-- 5️⃣ Settings Section -->
+<div id="settings-section" class="hidden">
+  <h2>✅ Allowed Domains</h2>
+  <input type="text" id="site-input" placeholder="e.g. example.com">
+  <button id="add-site">Add Domain</button>
+  <ul id="whitelist"></ul>
+  <button id="clear-all" class="danger">Clear All Domains</button>
+  <hr>
+  <h2>⚙️ Settings</h2>
+  <button id="view-history">View Upload History</button>
+  <button id="show-update-section-btn">Update Password</button>
+  <hr>
+  <!-- Custom URL Management -->
+  <h2>🌐 Allowed Redirect URLs</h2>
+  <input type="text" id="custom-url-input" placeholder="https://example.com">
+  <button id="add-custom-url">Add URL</button>
+  <ul id="custom-url-list"></ul>
+</div>
+
+<!-- 6️⃣ Update Section -->
+<div id="update-section" class="hidden">
+  <button id="back-to-settings">🔙 Back</button>
+  <h2>🔒 Update Password</h2>
+  <hr>
+  <input type="password" id="current-password" placeholder="Current Password">
+  <input type="password" id="new-password" placeholder="New Password (min 6)">
+  <button id="update-password">Update Password</button>
+  <p id="password-status" class="error"></p>
+  <hr>
+  <h2>❓ Update Security Question</h2>
+  <select id="set-security-question">
+    <option disabled selected value="">Choose Security Question</option>
+    <option value="pet">What is your pet's name?</option>
+    <option value="school">What is the name of your first school?</option>
+    <option value="city">In which city were you born?</option>
+  </select>
+  <input type="text" id="set-security-answer" placeholder="Answer">
+  <button id="save-security">Save Security Question</button>
+  <p id="security-status" class="error"></p>
+</div>
+
+
+  <script src="../popup/popup.js"></script>
+</body>
+</html>
