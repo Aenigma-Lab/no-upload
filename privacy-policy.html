@@ -8,30 +8,32 @@
     /* General Styles */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
+      background-color: #000; /* Black background */
       margin: 0;
       padding: 0;
-      color: #ddd; /* Light grey text for readability */
+      color: #fff; /* White text for readability */
       line-height: 1.6;
     }
 
     /* Navbar Styles */
     nav {
-      background-color: #2c3e50;
-      padding: 10px 20px;
+      background-color: #111; /* Darker shade for navbar */
+      padding: 20px 40px; /* Increased padding for better spacing */
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Light shadow for depth */
     }
 
     nav h1 {
       color: white;
       margin: 0;
-      font-size: 24px;
+      font-size: 26px;
+      letter-spacing: 1px;
     }
 
     nav a {
-      color: white;
+      color: #fff; /* White text for links */
       text-decoration: none;
       margin-left: 20px;
       font-size: 16px;
@@ -39,18 +41,20 @@
 
     nav a:hover {
       text-decoration: underline;
+      color: #00aaff; /* Light blue on hover */
     }
 
     /* Layout: Sidebar and Main Content */
     .container {
       display: flex;
-      padding: 20px;
+      padding: 30px;
+      justify-content: space-between;
     }
 
     /* Sidebar Styles */
     .sidebar {
-      width: 200px;
-      background-color: #34495e;
+      width: 220px;
+      background-color: #222; /* Darker sidebar */
       color: white;
       padding: 20px;
       border-radius: 8px;
@@ -79,14 +83,15 @@
 
     .sidebar a:hover {
       text-decoration: underline;
+      color: #00aaff;
     }
 
     /* Content Styles */
     .content {
       flex: 1;
-      background-color: #2f353d;
+      background-color: #111; /* Dark background for content */
       border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Light shadow for depth */
       padding: 30px 40px;
       max-width: 900px;
     }
@@ -131,12 +136,13 @@
 
     a:hover {
       text-decoration: underline;
+      color: #00aaff; /* Light blue on hover */
     }
 
     footer {
       margin-top: 40px;
       font-size: 0.9em;
-      color: #aaa; /* Lighter grey for footer */
+      color: #888; /* Lighter grey for footer */
       text-align: center;
     }
   </style>
